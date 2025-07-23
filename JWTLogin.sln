@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTLogin.Core", "JWTLogin.Core\JWTLogin.Core.csproj", "{27D99FF0-3670-49CB-A570-CB796A8D764F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTLogin.Infra", "JWTLogin.Infra\JWTLogin.Infra.csproj", "{E910D1E2-CEC0-4D68-B080-7521D3E1B460}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTLogin.API", "JWTLogin.Web\JWTLogin.API.csproj", "{25EC37E6-6954-4288-A77B-A6AA88386754}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Debug|x64.Build.0 = Debug|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Debug|x86.Build.0 = Debug|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Release|x64.ActiveCfg = Release|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Release|x64.Build.0 = Release|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Release|x86.ActiveCfg = Release|Any CPU
+		{27D99FF0-3670-49CB-A570-CB796A8D764F}.Release|x86.Build.0 = Release|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Debug|x64.Build.0 = Debug|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Debug|x86.Build.0 = Debug|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Release|x64.ActiveCfg = Release|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Release|x64.Build.0 = Release|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Release|x86.ActiveCfg = Release|Any CPU
+		{E910D1E2-CEC0-4D68-B080-7521D3E1B460}.Release|x86.Build.0 = Release|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Debug|x64.Build.0 = Debug|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Debug|x86.Build.0 = Debug|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Release|x64.ActiveCfg = Release|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Release|x64.Build.0 = Release|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Release|x86.ActiveCfg = Release|Any CPU
+		{25EC37E6-6954-4288-A77B-A6AA88386754}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8EF4D006-35DD-4E06-8850-764CF14803E6}
+	EndGlobalSection
+EndGlobal
