@@ -1,6 +1,6 @@
-﻿using JWTLogin.Core.SharedContext.ValueObjects;
+﻿using JWTLogin.Core.Contexts.SharedContext.ValueObjects;
 
-namespace JWTLogin.Core.AccountContext.ValueObjects
+namespace JWTLogin.Core.Contexts.AccountContext.ValueObjects
 {
     public class Verification : ValueObject
     {

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace JWTLogin.Core.SharedContext.Extensions
+namespace JWTLogin.Core.Contexts.SharedContext.Extensions
 {
     public static class StringExtension
     {

@@ -1,5 +1,6 @@
-﻿using JWTLogin.Core.SharedContext.Extensions;
-using JWTLogin.Core.SharedContext.ValueObjects;
+﻿using JWTLogin.Core.Contexts.AccountContext.ValueObjects;
+using JWTLogin.Core.Contexts.SharedContext.Extensions;
+using JWTLogin.Core.Contexts.SharedContext.ValueObjects;
 using System.Text.RegularExpressions;
 
 namespace JWTLogin.Core.AccountContext.ValueObjects

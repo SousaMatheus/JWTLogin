@@ -1,7 +1,8 @@
 ﻿using JWTLogin.Core.AccountContext.ValueObjects;
-using JWTLogin.Core.SharedContext.Entities;
+using JWTLogin.Core.Contexts.AccountContext.ValueObjects;
+using JWTLogin.Core.Contexts.SharedContext.Entities;
 
-namespace JWTLogin.Core.AccountContext.Entities
+namespace JWTLogin.Core.Contexts.AccountContext.Entities
 {
     public class User : Entity
     {

@@ -1,4 +1,4 @@
-﻿namespace JWTLogin.Core.SharedContext.Entities
+﻿namespace JWTLogin.Core.Contexts.SharedContext.Entities
 {
     public abstract class Entity : IEquatable<Guid>
     {

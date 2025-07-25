@@ -1,7 +1,7 @@
-﻿using JWTLogin.Core.SharedContext.ValueObjects;
+﻿using JWTLogin.Core.Contexts.SharedContext.ValueObjects;
 using System.Security.Cryptography;
 
-namespace JWTLogin.Core.AccountContext.ValueObjects
+namespace JWTLogin.Core.Contexts.AccountContext.ValueObjects
 {
     public class Password : ValueObject
     {
@@ -28,7 +28,7 @@ namespace JWTLogin.Core.AccountContext.ValueObjects
         bool includeSpecialChars = true,
         bool upperCase = false)
         {
-            var chars = includeSpecialChars ? (Valid + Special) : Valid;
+            var chars = includeSpecialChars ? Valid + Special : Valid;
             var startRandom = upperCase ? 26 : 0;
             var index = 0;
             var res = new char[length];
