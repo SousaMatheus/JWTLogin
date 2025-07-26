@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTLogin.Core", "JWTLogin.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTLogin.Infra", "JWTLogin.Infra\JWTLogin.Infra.csproj", "{E910D1E2-CEC0-4D68-B080-7521D3E1B460}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTLogin.API", "JWTLogin.Web\JWTLogin.API.csproj", "{25EC37E6-6954-4288-A77B-A6AA88386754}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTLogin.Api", "JWTLogin.Api\JWTLogin.Api.csproj", "{25EC37E6-6954-4288-A77B-A6AA88386754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
