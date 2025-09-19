@@ -6,7 +6,7 @@ using SendGrid.Helpers.Mail;
 
 namespace JWTLogin.Infra.Contexts.AccountContext.UseCases.Create
 {
-    internal class Service : IService
+    public class Service : IService
     {
         public async Task SendValidationEmailAsync(User user, CancellationToken cancellationToken)
         {

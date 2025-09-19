@@ -16,7 +16,7 @@ namespace JWTLogin.Infra.Contexts.AccountContext.UseCases.Create
 
         public async Task<bool> AnyAsync(string email, CancellationToken cancellationToken) 
             => await _context.Users
-                            .AnyAsync(u => u.Email == email, cancellationToken);
+                            .AnyAsync(u => u.Email.Address == email, cancellationToken);
 
         public async Task CreateAsync(User user, CancellationToken cancellationToken)
         {

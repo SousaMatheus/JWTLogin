@@ -2,10 +2,11 @@
 using JWTLogin.Core.Contexts.AccountContext.Entities;
 using JWTLogin.Core.Contexts.AccountContext.UseCases.Create.Contracts;
 using JWTLogin.Core.Contexts.AccountContext.ValueObjects;
+using MediatR;
 
 namespace JWTLogin.Core.Contexts.AccountContext.UseCases.Create
 {
-    public class Handler
+    public class Handler : IRequestHandler<Request, Response>
     {
         private readonly IRepository _repository;
         private readonly IService _service;
