@@ -79,7 +79,7 @@ namespace JWTLogin.Core.Contexts.AccountContext.UseCases.Authenticate
                 Email = request.Email,
                 Id = user.Id.ToString(),
                 Name = user.Name,
-                Roles = Array.Empty<string>()
+                Roles = user.Roles.Select(x => x.Name).ToArray()
             };
 
             return new Response("", data);

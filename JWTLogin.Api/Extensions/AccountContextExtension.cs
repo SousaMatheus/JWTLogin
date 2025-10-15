@@ -17,6 +17,13 @@ namespace JWTLogin.Api.Extensions
                 JWTLogin.Infra.Contexts.AccountContext.UseCases.Create.Service>();
 
             #endregion
+
+            #region Authenticate
+            builder.Services.AddTransient<
+                JWTLogin.Core.Contexts.AccountContext.UseCases.Authenticate.Contracts.IRepository,
+                JWTLogin.Infra.Contexts.AccountContext.UseCases.Authenticate.Repository>();
+
+            #endregion
         }
 
         public static void MapAccountEndpoints(this WebApplication app)
@@ -35,6 +42,29 @@ namespace JWTLogin.Api.Extensions
                 return result.IsSuccess
                 ? Results.Created($"api/v1/users/{result.Data?.Id}", result)
                 : Results.Json(result, statusCode: result.Status);
+            });
+
+            #endregion
+
+            #region Authenticate
+
+            app.MapPost("api/v1/authenticate", async (
+
+                JWTLogin.Core.Contexts.AccountContext.UseCases.Authenticate.Request request,
+                IRequestHandler<
+                    JWTLogin.Core.Contexts.AccountContext.UseCases.Authenticate.Request,
+                    JWTLogin.Core.Contexts.AccountContext.UseCases.Authenticate.Response> handler) =>
+            {
+                var result = await handler.Handle(request, new CancellationToken());
+
+                if(!result.IsSuccess)                
+                    return Results.Json(result, statusCode: result.Status);
+
+                if(result.Data is null)
+                    return Results.Json(result, statusCode: 500);
+                
+                result.Data.Token = TokenExtensions.GenerateToken(result.Data);
+                return Results.Ok(result);
             });
 
             #endregion
