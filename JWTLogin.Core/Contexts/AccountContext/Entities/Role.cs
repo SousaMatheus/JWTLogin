@@ -6,6 +6,10 @@ namespace JWTLogin.Core.Contexts.AccountContext.Entities
     {
         public string Name { get; set; } = string.Empty;
 
-        public List<User>Users{ get; set; } = new List<User>();
+        public List<User> Users { get; set; } = new List<User>();
+
+        protected Role()
+        {
+        }
     }
 }

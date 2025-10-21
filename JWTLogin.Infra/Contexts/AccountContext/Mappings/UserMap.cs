@@ -74,6 +74,21 @@ namespace JWTLogin.Infra.Contexts.AccountContext.Mappings
                     .HasColumnType("VARCHAR")
                     .IsRequired();
             });
+
+            builder.HasMany(u => u.Roles)
+                .WithMany(r => r.Users)
+                .UsingEntity<Dictionary<string, object>>(
+                "UserRole",
+                role => role
+                .HasOne<Role>()
+                .WithMany()
+                .HasForeignKey("RoleId")
+                .OnDelete(DeleteBehavior.Cascade),
+                user => user
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey("UserId")
+                .OnDelete(DeleteBehavior.Cascade));
         }
     }
 }
