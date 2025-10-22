@@ -14,6 +14,12 @@ namespace JWTLogin.Infra.Contexts.AccountContext.UseCases.Authenticate
             _context = context;
         }
         public async Task<User?> GetUserByEmailAsync(string email)
-            => await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Email.Address.Equals(email, StringComparison.InvariantCultureIgnoreCase));
+            => await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Email.Address.Equals(email));
+
+        public async Task<List<Role>> GetUserRolesAsync(string email)
+            => await _context.Users.AsNoTracking()
+                                   .Where(x => x.Email.Address.Equals(email))
+                                   .SelectMany(x => x.Roles)
+                                   .ToListAsync();
     }
 }

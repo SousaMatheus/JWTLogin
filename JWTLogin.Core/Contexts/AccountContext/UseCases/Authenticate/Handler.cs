@@ -73,6 +73,17 @@ namespace JWTLogin.Core.Contexts.AccountContext.UseCases.Authenticate
             }
             #endregion
 
+            #region 05 - Get the user's roles
+            try
+            {
+                user.Roles = await _repository.GetUserRolesAsync(request.Email);
+            }
+            catch(Exception)
+            {
+                return new Response("An error occured when trying to check your profile", 500);
+            }
+            #endregion
+
             #region 05 - Return the data
             var data = new ResponseData
             {
