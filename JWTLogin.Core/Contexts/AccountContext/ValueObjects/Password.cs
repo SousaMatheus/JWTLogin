@@ -9,7 +9,8 @@ namespace JWTLogin.Core.Contexts.AccountContext.ValueObjects
         private const string Special = "!@#$%ˆ&*(){}[];çÇ";
 
         public string Hash { get; } = string.Empty;
-        public string ResetCode { get; } = Guid.NewGuid().ToString("N")[..8].ToUpper();
+
+        public string ResetCode { get; } = Guid.NewGuid().ToString("N")[..8].ToUpperInvariant();
 
         protected Password()
         {
@@ -32,60 +33,89 @@ namespace JWTLogin.Core.Contexts.AccountContext.ValueObjects
             bool upperCase = false)
         {
             var chars = includeSpecialChars ? Valid + Special : Valid;
-            var res = new char[length];
+            var result = new char[length];
 
             for(var i = 0; i < length; i++)
             {
                 var index = RandomNumberGenerator.GetInt32(chars.Length);
-                res[i] = chars[index];
+                result[i] = chars[index];
             }
 
-            return upperCase
-                ? new string(res).ToUpperInvariant()
-                : new string(res);
+            var password = new string(result);
+
+            return upperCase ? password.ToUpperInvariant() : password;
         }
 
         private static string Hashing(
             string password,
             short saltSize = 16,
-            short keySize = 64,
+            short keySize = 32,
             int iterations = 10000,
             char splitChar = '.')
         {
-            if(string.IsNullOrEmpty(password))
+            if(string.IsNullOrWhiteSpace(password))
                 throw new Exception("Password should not be null or empty");
 
             password += Configuration.Secrets.PasswordSaltKey;
 
             var salt = RandomNumberGenerator.GetBytes(saltSize);
-            var derivedKey = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, HashAlgorithmName.SHA256, keySize);
 
-            return $"{iterations}{splitChar}{salt}{splitChar}{derivedKey}";
+            var derivedKey = Rfc2898DeriveBytes.Pbkdf2(
+                password,
+                salt,
+                iterations,
+                HashAlgorithmName.SHA256,
+                keySize);
+
+            var saltBase64 = Convert.ToBase64String(salt);
+            var keyBase64 = Convert.ToBase64String(derivedKey);
+
+            return $"{iterations}{splitChar}{saltBase64}{splitChar}{keyBase64}";
         }
 
         private static bool Verify(
-        string hash,
-        string password,
-        short keySize = 64,
-        int iterations = 10000,
-        char splitChar = '.')
+            string hash,
+            string password,
+            int iterations = 10000,
+            char splitChar = '.')
         {
-            password += Configuration.Secrets.PasswordSaltKey;
+            if(string.IsNullOrWhiteSpace(hash) || string.IsNullOrWhiteSpace(password))
+                return false;
 
             var parts = hash.Split(splitChar, 3);
+
             if(parts.Length != 3)
                 return false;
 
-            var hashIterations = Convert.ToInt32(parts[0]);
-            var salt = Convert.FromBase64String(parts[1]);
-            var key = Convert.FromBase64String(parts[2]);
-
-            if(hashIterations != iterations)
+            if(!int.TryParse(parts[0], out var hashIterations) || hashIterations != iterations)
                 return false;
 
-            var keyToCheck = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, HashAlgorithmName.SHA256, keySize);
+            byte[] salt;
+            byte[] storedKey;
 
-            return CryptographicOperations.FixedTimeEquals(keyToCheck, key);
+            try
+            {
+                salt = Convert.FromBase64String(parts[1]);
+                storedKey = Convert.FromBase64String(parts[2]);
+            }
+            catch(FormatException)
+            {
+                return false;
+            }
+
+            if(salt.Length != 16 || storedKey.Length != 32)
+                return false;
+
+            password += Configuration.Secrets.PasswordSaltKey;
+
+            var keyToCheck = Rfc2898DeriveBytes.Pbkdf2(
+                password,
+                salt,
+                hashIterations,
+                HashAlgorithmName.SHA256,
+                storedKey.Length);
+
+            return CryptographicOperations.FixedTimeEquals(keyToCheck, storedKey);
         }
     }
 }
