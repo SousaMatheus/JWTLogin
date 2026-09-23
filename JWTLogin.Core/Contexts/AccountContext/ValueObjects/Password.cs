@@ -17,8 +17,8 @@ namespace JWTLogin.Core.Contexts.AccountContext.ValueObjects
 
         public Password(string password)
         {
-            if(string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(password))
-                password =  Generate();
+            if(string.IsNullOrWhiteSpace(password))
+                password = Generate();
 
             Hash = Hashing(password);
         }
@@ -27,26 +27,28 @@ namespace JWTLogin.Core.Contexts.AccountContext.ValueObjects
             => Verify(Hash, plainTextPassword);
 
         private static string Generate(
-        short length = 16,
-        bool includeSpecialChars = true,
-        bool upperCase = false)
+            short length = 16,
+            bool includeSpecialChars = true,
+            bool upperCase = false)
         {
             var chars = includeSpecialChars ? Valid + Special : Valid;
-            var startRandom = upperCase ? 26 : 0;
-            var index = 0;
             var res = new char[length];
-            var rnd = new Random();
 
-            while(index < length)
-                res[index++] = chars[rnd.Next(startRandom, chars.Length)];
+            for(var i = 0; i < length; i++)
+            {
+                var index = RandomNumberGenerator.GetInt32(chars.Length);
+                res[i] = chars[index];
+            }
 
-            return new string(res);
+            return upperCase
+                ? new string(res).ToUpperInvariant()
+                : new string(res);
         }
 
         private static string Hashing(
             string password,
             short saltSize = 16,
-            short keySize = 32,
+            short keySize = 64,
             int iterations = 10000,
             char splitChar = '.')
         {
@@ -55,21 +57,16 @@ namespace JWTLogin.Core.Contexts.AccountContext.ValueObjects
 
             password += Configuration.Secrets.PasswordSaltKey;
 
-            using var algorithm = new Rfc2898DeriveBytes(
-                password,
-                saltSize,
-                iterations,
-                HashAlgorithmName.SHA256);
-            var key = Convert.ToBase64String(algorithm.GetBytes(keySize));
-            var salt = Convert.ToBase64String(algorithm.Salt);
+            var salt = RandomNumberGenerator.GetBytes(saltSize);
+            var derivedKey = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, HashAlgorithmName.SHA256, keySize);
 
-            return $"{iterations}{splitChar}{salt}{splitChar}{key}";
+            return $"{iterations}{splitChar}{salt}{splitChar}{derivedKey}";
         }
 
         private static bool Verify(
         string hash,
         string password,
-        short keySize = 32,
+        short keySize = 64,
         int iterations = 10000,
         char splitChar = '.')
         {
@@ -86,14 +83,9 @@ namespace JWTLogin.Core.Contexts.AccountContext.ValueObjects
             if(hashIterations != iterations)
                 return false;
 
-            using var algorithm = new Rfc2898DeriveBytes(
-                password,
-                salt,
-                iterations,
-                HashAlgorithmName.SHA256);
-            var keyToCheck = algorithm.GetBytes(keySize);
+            var keyToCheck = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, HashAlgorithmName.SHA256, keySize);
 
-            return keyToCheck.SequenceEqual(key);
+            return CryptographicOperations.FixedTimeEquals(keyToCheck, key);
         }
     }
 }
