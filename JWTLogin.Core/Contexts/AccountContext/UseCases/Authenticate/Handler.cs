@@ -51,7 +51,7 @@ namespace JWTLogin.Core.Contexts.AccountContext.UseCases.Authenticate
 
             try
             {
-                if(user.Password.Challenge(request.Password))
+                if(!user.Password.Challenge(request.Password))
                     return new Response("Invalid e-mail or password", 400);
             }
             catch(Exception)
